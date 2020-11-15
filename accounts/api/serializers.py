@@ -31,17 +31,20 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 class AuthUserSerializer(serializers.ModelSerializer):
     is_expired = serializers.SerializerMethodField()
-    activities = ActivitySerializer(many=True, read_only=True)
+    last_login = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ["email", "name", "last_login", "subscribe", 
-        "expired_at", "is_expired", "activities", "created_at"]
+        "expired_at", "is_expired", "created_at"]
 
-    def get_is_expired(self, object):
-        if not object.expired_at is None:
-            return date.today() > object.expired_at
+    def get_is_expired(self, instance):
+        if not instance.expired_at is None:
+            return date.today() > instance.expired_at
         return None
+
+    def get_last_login(self, instance):
+        return instance.last_login.strftime("%d/%m/%Y, %H:%M")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
