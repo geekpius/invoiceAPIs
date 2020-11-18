@@ -48,13 +48,15 @@ class AuthUserSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
+    user = serializers.StringRelatedField(read_only=True)
+    logo = serializers.ImageField(read_only=True)
 
     class Meta:
         model = Profile
         exclude = ("id",)
 
-class ProfileAvatarSerializer(serializers.ModelSerializer):
+
+class ProfileLogoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile

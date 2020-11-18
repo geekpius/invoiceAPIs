@@ -69,13 +69,13 @@ class User(AbstractBaseUser):
 
 class Profile (models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="profile", on_delete=models.CASCADE)
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, blank=True)
-    phone = models.CharField(max_length=15)
-    location = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15, null=True, blank=True)
+    location = models.CharField(max_length=100, null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     digital_address = models.CharField(max_length=100, null=True, blank=True)
-    logo = models.ImageField(upload_to="logos", null=True)
+    logo = models.ImageField(upload_to="logos", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
