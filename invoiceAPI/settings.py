@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'accounts.apps.AccountsConfig',
+    'materialInvoices.apps.MaterialinvoicesConfig',
 
     'rest_framework',
     'drf_yasg',
