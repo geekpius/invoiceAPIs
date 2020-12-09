@@ -44,7 +44,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
         return None
 
     def get_last_login(self, instance):
-        return instance.last_login.strftime("%d/%m/%Y, %H:%M")
+        return instance.last_login.strftime("%Y-%m-%d, %H:%M")
 
 
 class ProfileSerializer(serializers.ModelSerializer):

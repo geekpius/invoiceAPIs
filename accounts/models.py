@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, name, subscribe="free", expired_at=datetime.now()+timedelta(days=7), password=None):
+    def create_user(self, email, name, password=None):
         if not email:
             raise ValueError('Users must have an email address')
         if not name:
@@ -40,8 +40,8 @@ class User(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=255, unique=True)
     name = models.CharField(max_length=60)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
-    subscribe = models.CharField(max_length=60, null=True)
-    expired_at = models.DateField(null=True)
+    subscribe = models.CharField(max_length=60, default="free")
+    expired_at = models.DateField(default=datetime.now()+timedelta(days=7))
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
