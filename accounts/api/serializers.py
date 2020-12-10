@@ -22,7 +22,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class ActivitySerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
+    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Activity
