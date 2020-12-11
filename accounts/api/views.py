@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from core.permissions import IsOwnerOrReadOnly
+
 from .serializers import (AuthUserSerializer, ProfileLogoSerializer,
                           ProfileSerializer, UserCreateSerializer)
 
@@ -39,7 +41,7 @@ class LogoutAPIView(APIView):
 
 class AuthUserRetrieveAPIView(RetrieveUpdateAPIView):
     serializer_class = AuthUserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_object(self):
         return self.request.user
@@ -47,7 +49,7 @@ class AuthUserRetrieveAPIView(RetrieveUpdateAPIView):
 
 class ProfileRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_object(self):
         return self.request.user.profile

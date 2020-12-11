@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
     'materialprofiles.apps.MaterialprofilesConfig',
+    'settings.apps.SettingsConfig',
 
     'rest_framework',
     'drf_yasg',
