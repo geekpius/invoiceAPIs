@@ -5,5 +5,5 @@ from .views import (PercentageRetrieveUpdateAPIView)
 app_name = "settings"
 
 urlpatterns = [
-    path('', PercentageRetrieveUpdateAPIView.as_view(), name='percentage_retrieve_update'),
+    path('percentages/', PercentageRetrieveUpdateAPIView.as_view(), name='percentage_retrieve_update'),
 ]

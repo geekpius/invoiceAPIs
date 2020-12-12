@@ -41,6 +41,7 @@ urlpatterns = [
 
     path('api/auth/', include('accounts.api.urls')),
     path('api/material-profiles/', include('materialprofiles.api.urls')),
+    path('api/settings/', include('settings.api.urls')),
 
     url(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^api/docs/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

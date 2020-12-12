@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import RetrieveAPIView, UpdateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,22 +10,25 @@ from core.permissions import IsOwnerOrReadOnly
 from .serializers import (AuthUserSerializer, ProfileLogoSerializer,
                           ProfileSerializer, UserCreateSerializer)
 
-
-class UserCreateAPIView(APIView):
+  
+# class UserCreateAPIView(APIView):
     
-    def post(self, request):
-        serializer = UserCreateSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            refresh = RefreshToken.for_user(user)
-            response = {
-                "refresh": str(refresh),
-                "access": str(refresh.access_token),
-            }
-            return Response(response, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def post(self, request):
+#         serializer = UserCreateSerializer(data=request.data)
+#         if serializer.is_valid():
+#             user = serializer.save()
+#             refresh = RefreshToken.for_user(user)
+#             response = {
+#                 "refresh": str(refresh),
+#                 "access": str(refresh.access_token),
+#             }
+#             return Response(response, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class UserCreateAPIView(CreateAPIView):
+    serializer_class = UserCreateSerializer
 
+    
 class LogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
     
