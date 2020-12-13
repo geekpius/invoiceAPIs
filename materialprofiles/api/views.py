@@ -1,11 +1,11 @@
 from rest_framework import status
-from rest_framework.generics import (ListCreateAPIView)
+from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
 
 from .serializers import MaterialProfileSerializer, MaterialDescriptionSerializer
 from materialprofiles.models import MaterialProfile, MaterialDescription
-from core.permissions import IsOwnerOrReadOnly
+from core.permissions import IsOwnerOrReadOnly, IsOwner
 
 
 class MaterialProfileListCreateAPIView(ListCreateAPIView):
@@ -23,12 +23,17 @@ class MaterialProfileListCreateAPIView(ListCreateAPIView):
 
 class MaterialDescriptionListCreateAPIView(ListCreateAPIView):
     serializer_class = MaterialDescriptionSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
     queryset = MaterialDescription.objects.all()
 
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(user=user)
+
+class MaterialDescriptionRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = MaterialDescriptionSerializer
+    permission_classes = [IsAuthenticated, IsOwner]
+    queryset = MaterialDescription.objects.all()
 
 
     

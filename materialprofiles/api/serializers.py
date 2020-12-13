@@ -16,6 +16,6 @@ class MaterialDescriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MaterialDescription
-        exclude = ("id",)
+        fields = "__all__"
 
 
